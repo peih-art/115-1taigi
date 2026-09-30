@@ -166,6 +166,9 @@
       <div class="flex items-center space-x-2 overflow-x-auto pb-1" id="grade-selector-container">
         <!-- Grade buttons populated by JS -->
       </div>
+      <div class="flex items-center gap-2 pt-1.5 overflow-x-auto" id="semester-selector-container">
+        <!-- Semester buttons populated by JS -->
+      </div>
     </div>
   </header>
 
@@ -439,6 +442,14 @@
      * 學校三至六年級校本閩南語每週一句完整題庫
      * 配合教育部臺灣台語推薦漢字、教育部臺羅拼音與詳細生活意涵
      */
+/*
+     * 【新增下學期題目的方法】
+     * 在該年級的 phrases 陣列最後，照下面格式加一筆（記得前一筆結尾要有逗號）：
+     *   { id: "g3_s2_1", semester: 2, week: 1, hanzi: "漢字。", tailo: "Tâi-lô.", mandarin: "華語意涵。", category: "分類" }
+     * - semester: 2 代表下學期；沒有寫 semester 的題目一律是上學期
+     * - week 是該學期的第幾週，下學期從 1 開始
+     * - id 不可重複，對應的示範音檔為 audio/<id>.mp3，例如 audio/g3_s2_1.mp3
+     */
     const GRADE_DATABASE = {
       3: {
         title: "三年級（生活俗諺與日常啟發）",
@@ -458,7 +469,23 @@
           { id: "g3_13", week: 13, hanzi: "心歹無人知，嘴歹上厲害。", tailo: "Sim pháinn bô-lâng tsai, tshuì pháinn siōng lī-hāi.", mandarin: "心壞別人看不出來，但說話尖酸刻薄最傷人。勸人講話愛細膩（說話要客氣謹慎）。", category: "修身口德" },
           { id: "g3_14", week: 14, hanzi: "樹頭若企有在，毋驚樹尾做風颱。", tailo: "Tshiū-thâu nā khiā ū tsāi, m̄-kiann tshiū-bué tsò hong-thai.", mandarin: "事事項項照人情義理，立足穩固，就什麼都不怕。", category: "為人正直" },
           { id: "g3_15", week: 15, hanzi: "細孔毋補，大孔艱苦。", tailo: "Sè-kháng m̄ póo, tuā-kháng kan-khóo.", mandarin: "勸人遇到小小缺失過錯，要趕緊改善改過，才不會惡化到無法彌補。", category: "防微杜漸" },
-          { id: "g3_16", week: 16, hanzi: "惜花連盆，疼囝連孫。", tailo: "Sioh hue liân phûn, thiànn kiánn liân sun.", mandarin: "愛花連花盆一起愛護，疼愛子女連帶疼愛孫子。比喻愛屋及烏。", category: "親情關懷" }
+          { id: "g3_16", week: 16, hanzi: "惜花連盆，疼囝連孫。", tailo: "Sioh hue liân phûn, thiànn kiánn liân sun.", mandarin: "愛花連花盆一起愛護，疼愛子女連帶疼愛孫子。比喻愛屋及烏。", category: "親情關懷" },
+          { "id": "g3_s2_1", "semester": 2, "week": 1, "hanzi": "大隻雞慢啼。", "tailo": "Tuā-tsiah ke bān thî.", "mandarin": "大器晚成。", "category": "成長勉勵" },
+          { "id": "g3_s2_2", "semester": 2, "week": 2, "hanzi": "會曉洗面，毋免偌濟水。", "tailo": "Ē-hiáu sé-bīn, m̄-bián guā-tsē tsuí.", "mandarin": "做事情如果知道方法，就可以輕鬆完成。", "category": "處世智慧" },
+          { "id": "g3_s2_3", "semester": 2, "week": 3, "hanzi": "掃地掃壁角，洗面洗耳空。", "tailo": "Sàu-tē sàu piah-kak, sé-bīn sé hīnn-khang.", "mandarin": "平常愈容易疏忽的部分，愈要注意。", "category": "儀容整潔" },
+          { "id": "g3_s2_4", "semester": 2, "week": 4, "hanzi": "輸人毋輸陣。", "tailo": "Su lâng m̄ su tīn.", "mandarin": "陣是團體的意思。雖然個人能力較弱，但是團體的氣勢不能被壓過。", "category": "自信勉勵" },
+          { "id": "g3_s2_5", "semester": 2, "week": 5, "hanzi": "一樣米飼百樣人。", "tailo": "Tsi̍t-iūnn bí tshī pah-iūnn lâng.", "mandarin": "形容在社會上，各式各樣的人都有。", "category": "世情觀察" },
+          { "id": "g3_s2_6", "semester": 2, "week": 6, "hanzi": "一下雷，天下響。", "tailo": "Tsi̍t-ē luî, thinn-hā hiáng.", "mandarin": "比喻突然做出驚人之舉，一下子就聞名天下。", "category": "立志向上" },
+          { "id": "g3_s2_7", "semester": 2, "week": 7, "hanzi": "憨狗逐飛鳥。", "tailo": "Gōng káu jiok pue-tsiáu.", "mandarin": "比喻做傻事。", "category": "慎思明辨" },
+          { "id": "g3_s2_8", "semester": 2, "week": 8, "hanzi": "食緊挵破碗。", "tailo": "Tsia̍h-kín lòng phuà uánn.", "mandarin": "比喻貪快反而達不到目的。", "category": "踏實力行" },
+          { "id": "g3_s2_9", "semester": 2, "week": 9, "hanzi": "食好鬥相報。", "tailo": "Tsia̍h-hó tàu-sio-pò.", "mandarin": "意味有福同享。", "category": "鄰里互助" },
+          { "id": "g3_s2_10", "semester": 2, "week": 10, "hanzi": "三日徙東，三日徙西。", "tailo": "Sann-jit suá tang, sann-jit suá sai.", "mandarin": "時常更換地方，居無定所。", "category": "生活觀察" },
+          { "id": "g3_s2_11", "semester": 2, "week": 11, "hanzi": "一分錢，一分貨。", "tailo": "Tsi̍t-hun tsînn, tsi̍t-hun huè.", "mandarin": "什麼樣的價格，就買到什麼樣品質的東西。", "category": "生活觀察" },
+          { "id": "g3_s2_12", "semester": 2, "week": 12, "hanzi": "看人食米粉咧喝燒。", "tailo": "Khuànn lâng tsia̍h bí-hún leh huah sio.", "mandarin": "形容窮操心，愛關心別人的閒事。", "category": "社交修養" },
+          { "id": "g3_s2_13", "semester": 2, "week": 13, "hanzi": "看一個影，生一個子。", "tailo": "Khuànn tsi̍t-ê iánn, senn tsi̍t-ê kiánn.", "mandarin": "捕風捉影之意。", "category": "慎思明辨" },
+          { "id": "g3_s2_14", "semester": 2, "week": 14, "hanzi": "一丈差九尺。", "tailo": "Tsi̍t-tn̄g tsha káu-tshioh.", "mandarin": "指做事不切實際，馬馬虎虎。", "category": "專業細心" },
+          { "id": "g3_s2_15", "semester": 2, "week": 15, "hanzi": "細漢偷挽匏，大漢偷牽牛。", "tailo": "Sè-hàn thau bán pû, tuā-hàn thau khan gû.", "mandarin": "小時候小錯不改，長大就可能犯下滔天大禍。", "category": "防微杜漸" },
+          { "id": "g3_s2_16", "semester": 2, "week": 16, "hanzi": "少年袂曉想，食老毋成樣。", "tailo": "Siàu-liân bē-hiáu siūnn, tsia̍h-lāu m̄ tsiânn-iūnn.", "mandarin": "就是少壯不努力，老大徒傷悲。", "category": "勤學勵志" }
         ]
       },
       4: {
@@ -479,7 +506,23 @@
           { id: "g4_13", week: 13, hanzi: "起厝--ê 驚掠漏，醫生驚治嗽。", tailo: "Khí-tshù--ê kiann lia̍h-lāu, i-sing kiann tī sàu.", mandarin: "蓋房子師傅最怕抓漏水，醫生最怕治咳嗽。提醒人們處事要注意小細節。", category: "專業細心" },
           { id: "g4_14", week: 14, hanzi: "一人煩惱一樣，無人煩惱相親像。", tailo: "Tsi̍t-lâng huân-ló tsi̍t-iūnn, bô-lâng huân-ló sann-tshin-tshiūnn.", mandarin: "每個人各有各的煩惱與難題，正所謂家家有本難唸的經。", category: "同理體諒" },
           { id: "g4_15", week: 15, hanzi: "人牽毋行，鬼牽溜溜行。", tailo: "Lâng khan m̄-kiânn, kuí khan liu-liu kiânn.", mandarin: "好人牽引指導不肯走，跟著損友卻腳步飛快。形容人是非不分、誤入歧途。", category: "擇友警策" },
-          { id: "g4_16", week: 16, hanzi: "徛厝著好厝邊，作田著好田邊。", tailo: "Khiā-tshù tio̍h hó tshù-pinn, tsoh-tshân tio̍h hó tshân-pinn.", mandarin: "住家要有好鄰居，耕田要有好相鄰的農友。強調敦親睦鄰、守望相助。", category: "鄰里互助" }
+          { id: "g4_16", week: 16, hanzi: "徛厝著好厝邊，作田著好田邊。", tailo: "Khiā-tshù tio̍h hó tshù-pinn, tsoh-tshân tio̍h hó tshân-pinn.", mandarin: "住家要有好鄰居，耕田要有好相鄰的農友。強調敦親睦鄰、守望相助。", category: "鄰里互助" },
+          { "id": "g4_s2_1", "semester": 2, "week": 1, "hanzi": "王梨頭，西瓜尾。", "tailo": "Ông-lâi thâu, si-kue bué.", "mandarin": "教導人家怎樣挑選水果及觀察蔬果的自然生態。", "category": "生活觀察" },
+          { "id": "g4_s2_2", "semester": 2, "week": 2, "hanzi": "徛厝著好厝邊，作田著好田邊。", "tailo": "Khiā-tshù tio̍h hó tshù-piann, tsò-tshân tio̍h hó tshân-pinn.", "mandarin": "比喻守望相助的重要。", "category": "鄰里互助" },
+          { "id": "g4_s2_3", "semester": 2, "week": 3, "hanzi": "少年拼出名，老惜名聲。", "tailo": "Siàu-liân piànn tshut-miâ, lāu sioh miâ-siann.", "mandarin": "年輕人拼著希望出名，老年人則是比較愛惜聲譽。", "category": "品格自重" },
+          { "id": "g4_s2_4", "semester": 2, "week": 4, "hanzi": "戲棚頂做甲流汗，戲棚跤嫌甲流瀾。", "tailo": "Hì-pênn-téng tsò kah lâu-kuānn, hì-pênn-kha hiâm kah lâu-nuā.", "mandarin": "比喻說的比做的容易。", "category": "踏實力行" },
+          { "id": "g4_s2_5", "semester": 2, "week": 5, "hanzi": "三日討海，四日曝網。", "tailo": "Sann-jit thó-hái, sì-jit phak-bāng.", "mandarin": "一曝十寒，勤有功，嬉無益。曝，曬。", "category": "專注恆心" },
+          { "id": "g4_s2_6", "semester": 2, "week": 6, "hanzi": "一代親，二代表，三代毋捌了了。", "tailo": "Tsi̍t-tāi tshin, nn̄g-tāi piáu, sann-tāi m̄-bat liáu-liáu.", "mandarin": "姻親間的往來，一代比一代疏遠。", "category": "家族親情" },
+          { "id": "g4_s2_7", "semester": 2, "week": 7, "hanzi": "好田地不如好子。", "tailo": "Hó tshân-tē put-jû hó kiánn.", "mandarin": "有萬貫家財，不如有優秀的下一代。", "category": "教育啟示" },
+          { "id": "g4_s2_8", "semester": 2, "week": 8, "hanzi": "愛媠毋驚流鼻水。", "tailo": "Ài-suí m̄ kiann lâu phīnn-tsuí.", "mandarin": "愛漂亮的人不怕感冒。比喻不按常規的人，是要付出一些代價的。", "category": "處世智慧" },
+          { "id": "g4_s2_9", "semester": 2, "week": 9, "hanzi": "一日剃頭，三日緣投。", "tailo": "Tsi̍t-jit thì-thâu, sann-jit iân-tâu.", "mandarin": "理髮後會使人看起來清爽有神，自己順眼，別人也會有好印象。", "category": "儀容整潔" },
+          { "id": "g4_s2_10", "semester": 2, "week": 10, "hanzi": "三跤貓，笑一目狗。", "tailo": "Sann-kha niau, tshiò tsi̍t-ba̍k káu.", "mandarin": "三腳貓笑獨眼狗。指若要取笑批評別人之前，應先看看自己是不是也有類似的缺點。", "category": "自省謙遜" },
+          { "id": "g4_s2_11", "semester": 2, "week": 11, "hanzi": "人咧做，天咧看。", "tailo": "Lâng teh tsò, thinn teh khuànn.", "mandarin": "比喻天理昭昭，報應不爽。", "category": "明辨是非" },
+          { "id": "g4_s2_12", "semester": 2, "week": 12, "hanzi": "歹瓜厚子，歹人厚言語。", "tailo": "Pháinn-kue kāu-tsí, pháinn-lâng kāu gân-gí.", "mandarin": "指心術不正的壞人，專門講好聽的話奉承人，或專門喜歡談論別人的是非，興風作浪。", "category": "言語警惕" },
+          { "id": "g4_s2_13", "semester": 2, "week": 13, "hanzi": "食家己的米，煩惱別人的代誌。", "tailo": "Tsia̍h ka-kī ê bí, huân-ló pa̍t-lâng ê tāi-tsì.", "mandarin": "指喜歡多管閒事或古道熱腸的人。", "category": "處世智慧" },
+          { "id": "g4_s2_14", "semester": 2, "week": 14, "hanzi": "加減趁，較袂散。", "tailo": "Ke-kiám thàn, khah bē suànn.", "mandarin": "與其閒著，不如多少做一點工作，賺一些錢花用。", "category": "勤儉節約" },
+          { "id": "g4_s2_15", "semester": 2, "week": 15, "hanzi": "袂使無大無細。", "tailo": "Bē-sái bô tuā bô sè.", "mandarin": "指對人要尊敬不能沒有禮貌。", "category": "社交修養" },
+          { "id": "g4_s2_16", "semester": 2, "week": 16, "hanzi": "關公面前弄大刀。", "tailo": "Kuan-kong bīn-tsiân lāng tuā-to.", "mandarin": "要保持謙虛學習的態度不要自以為是。", "category": "謙虛待人" }
         ]
       },
       5: {
@@ -500,7 +543,23 @@
           { id: "g5_13", week: 13, hanzi: "五肢指頭仔伸出來無平長。", tailo: "Gōo-ki tsíng-thâu-á tshin-tshut-lâi bô pênn-tn̂g.", mandarin: "五根手指伸出來各有所長短。指兄弟同儕的才能各有所異，應互相尊重包容。", category: "尊重個別" },
           { id: "g5_14", week: 14, hanzi: "臭頭仔嘛會做皇帝，做總統你嘛有機會。", tailo: "Tshàu-thâu-á mā ē tsò hông-tè, tsò tsóng-thóng lí mā ū ki-huē.", mandarin: "英雄不怕出身低。只要肯努力奮鬥，每個人都有揚眉吐氣、出人頭地的機會。", category: "立志向上" },
           { id: "g5_15", week: 15, hanzi: "一日剃頭，三日緣投。", tailo: "Tsi̍t-ji̍t thì-thâu, sann-ji̍t iân-tâu.", mandarin: "理髮後會使人看起來清爽有神，自己順眼，別人也會有好印象。", category: "儀容整潔" },
-          { id: "g5_16", week: 16, hanzi: "囡仔人有耳無喙。", tailo: "Gín-á-lâng ū hīnn bô tshuì.", mandarin: "告誡小孩子要多聽多觀察，不要隨便插嘴大人的談話，更不能隨意道人長短。", category: "口德教養" }
+          { id: "g5_16", week: 16, hanzi: "囡仔人有耳無喙。", tailo: "Gín-á-lâng ū hīnn bô tshuì.", mandarin: "告誡小孩子要多聽多觀察，不要隨便插嘴大人的談話，更不能隨意道人長短。", category: "口德教養" },
+          { "id": "g5_s2_1", "semester": 2, "week": 1, "hanzi": "歹瓜厚子，歹人厚言語。", "tailo": "Pháinn-kue kāu-tsí, pháinn-lâng kāu gân-gí.", "mandarin": "形容壞人喜歡談論別人的是非，並藉此興風作浪。", "category": "言語警惕" },
+          { "id": "g5_s2_2", "semester": 2, "week": 2, "hanzi": "加減趁，較袂散。", "tailo": "Ke-kiám thàn, khah bē suànn.", "mandarin": "與其閒著，不如多少做一點工作，賺一些錢花用。", "category": "勤儉節約" },
+          { "id": "g5_s2_3", "semester": 2, "week": 3, "hanzi": "會咬人的狗袂吠。", "tailo": "Ē kā lâng ê káu bē puī.", "mandarin": "比喻少言之人不易流露情緒，心機反而深。", "category": "處世智慧" },
+          { "id": "g5_s2_4", "semester": 2, "week": 4, "hanzi": "食緊挵破碗。", "tailo": "Tsia̍h-kín lòng phuà uánn.", "mandarin": "比喻欲速則不達。", "category": "踏實力行" },
+          { "id": "g5_s2_5", "semester": 2, "week": 5, "hanzi": "甘蔗無雙頭甜。", "tailo": "Kam-tsià bô siang-thâu tinn.", "mandarin": "指人世間的種種都有無法兩全其美的遺憾。", "category": "人生體悟" },
+          { "id": "g5_s2_6", "semester": 2, "week": 6, "hanzi": "台灣頭尾行透透。", "tailo": "Tâi-uân thâu-bué kiânn thàu-thàu.", "mandarin": "認識臺灣風景的美麗。", "category": "鄉土情懷" },
+          { "id": "g5_s2_7", "semester": 2, "week": 7, "hanzi": "愛拚才會贏。", "tailo": "Ài piànn tsiah ē iânn.", "mandarin": "比喻唯有努力奮鬥，才能戰勝環境挑戰，成就一番事業。", "category": "立志向上" },
+          { "id": "g5_s2_8", "semester": 2, "week": 8, "hanzi": "食米毋知米價。", "tailo": "Tsia̍h bí m̄-tsai bí-kè.", "mandarin": "形容只知享受，不知賺錢辛苦。", "category": "理財珍惜" },
+          { "id": "g5_s2_9", "semester": 2, "week": 9, "hanzi": "有喙講甲無瀾。", "tailo": "Ū tshuì kóng kah bô nuā.", "mandarin": "比喻費盡唇舌。", "category": "處世智慧" },
+          { "id": "g5_s2_10", "semester": 2, "week": 10, "hanzi": "好酒沉甕底。", "tailo": "Hó tsiú tîm àng-té.", "mandarin": "意指好戲在後頭。", "category": "人生體悟" },
+          { "id": "g5_s2_11", "semester": 2, "week": 11, "hanzi": "枵鬼假細膩。", "tailo": "Iau-kuí ké sè-jī.", "mandarin": "形容表裡不一、矯揉造作的人。", "category": "品格警惕" },
+          { "id": "g5_s2_12", "semester": 2, "week": 12, "hanzi": "教歹囡仔大細。", "tailo": "Kà pháinn gín-á tuā-sè.", "mandarin": "教壞了大大小小的孩子。", "category": "教育啟示" },
+          { "id": "g5_s2_13", "semester": 2, "week": 13, "hanzi": "衫著新，人著舊。", "tailo": "Sann tio̍h sin, lâng tio̍h kū.", "mandarin": "衣服是新的好，人的交情是越久越好。", "category": "人倫省思" },
+          { "id": "g5_s2_14", "semester": 2, "week": 14, "hanzi": "少年拼出名，老惜名聲。", "tailo": "Siàu-liân piànn tshut-miâ, lāu sioh miâ-siann.", "mandarin": "年輕人拼著希望出名，老年人則是比較愛惜聲譽。", "category": "品格自重" },
+          { "id": "g5_s2_15", "semester": 2, "week": 15, "hanzi": "未曾學行先學飛，未曾掖種想挽瓜。", "tailo": "Bē-tsing oh kiânn seng oh pue, bē-tsing ia̍h-tsìng siūnn bán kue.", "mandarin": "指學習是要一步步漸進的，絕無一步登天的道理。", "category": "踏實力行" },
+          { "id": "g5_s2_16", "semester": 2, "week": 16, "hanzi": "關公面前弄大刀。", "tailo": "Kuan-kong bīn-tsiân lāng tuā-to.", "mandarin": "不自量力。", "category": "自省謙遜" }
         ]
       },
       6: {
@@ -521,13 +580,43 @@
           { id: "g6_13", week: 13, hanzi: "欠錢怨債主，不孝怨爸母。", tailo: "Khiàm-tsînn uàn tsè-tsú, put-hàu uàn pē-bú.", mandarin: "欠錢怪債主上門，自己不孝順反而怪罪父母。比喻人不知自我反省，只會推諉卸責。", category: "責任自省" },
           { id: "g6_14", week: 14, hanzi: "買賣算分，相請無論。", tailo: "Bé-bē sǹg hun, sann-tshiánn bô-lūn.", mandarin: "做生意買賣要分明算清楚，朋友互請宴客則講情誼不計較。公私界線要分明。", category: "公私分明" },
           { id: "g6_15", week: 15, hanzi: "惹熊惹虎，毋通惹著刺查某。", tailo: "Jiá hîm jiá hóo, m̄-thang jiá-tio̍h tshì-tsa-bóo.", mandarin: "寧可招惹兇猛的熊虎，也不要得罪蠻橫剽悍的人。提醒為人言行切莫好勇鬥狠。", category: "處世避險" },
-          { id: "g6_16", week: 16, hanzi: "捷罵袂聽，捷拍袂疼。", tailo: "Tsia̍p mē bē thiann, tsia̍p phah bē thiànn.", mandarin: "老是責罵孩子聽不進去，頻繁體罰反而皮了不覺痛。說明打罵教育無益，溝通同理更有效。", category: "教育啟示" }
+          { id: "g6_16", week: 16, hanzi: "捷罵袂聽，捷拍袂疼。", tailo: "Tsia̍p mē bē thiann, tsia̍p phah bē thiànn.", mandarin: "老是責罵孩子聽不進去，頻繁體罰反而皮了不覺痛。說明打罵教育無益，溝通同理更有效。", category: "教育啟示" },
+          { "id": "g6_s2_1", "semester": 2, "week": 1, "hanzi": "四書五經讀透透，毋捌黿、鼇、龜、鱉、灶。", "tailo": "Sù-su ngóo-king tha̍k thàu-thàu, m̄-bat guân, gôo, ku, pih, tsàu.", "mandarin": "比喻學習無止境。", "category": "勤學勵志" },
+          { "id": "g6_s2_2", "semester": 2, "week": 2, "hanzi": "食番薯，無存本心。", "tailo": "Tsia̍h han-tsî, bô tshun pún-sim.", "mandarin": "吃人家賜予的番薯，卻不懂得心存感激之意。罵人忘恩負義。", "category": "忠誠感恩" },
+          { "id": "g6_s2_3", "semester": 2, "week": 3, "hanzi": "蕗蕎蔥，假大瓣。", "tailo": "Lōo-kiō tshang, ké tuā-pān.", "mandarin": "蕗蕎的鱗莖是同類植物中最小的，有人拿來冒充蔥蒜；意即罵人冒充上流人士，花錢慷慨大方。", "category": "品格警惕" },
+          { "id": "g6_s2_4", "semester": 2, "week": 4, "hanzi": "大榕樹，好蔭影。", "tailo": "Tuā tshîng-tshiū, hó ìm-iánn.", "mandarin": "榕樹的樹冠愈大，能提供蔭涼的面積也愈大；喻官宦或富貴人物是多數人欽羨及求助的對象。", "category": "世情觀察" },
+          { "id": "g6_s2_5", "semester": 2, "week": 5, "hanzi": "好田地不如好子。", "tailo": "Hó tshân-tē put-jû hó kiánn.", "mandarin": "有萬貫家財，不如有優秀的下一代。", "category": "教育啟示" },
+          { "id": "g6_s2_6", "semester": 2, "week": 6, "hanzi": "一代親，二代表，三代毋捌了了。", "tailo": "Tsi̍t-tāi tshin, nn̄g-tāi piáu, sann-tāi m̄-bat liáu-liáu.", "mandarin": "姻親間的往來，一代比一代疏遠。", "category": "家族親情" },
+          { "id": "g6_s2_7", "semester": 2, "week": 7, "hanzi": "拍虎掠賊親兄弟。", "tailo": "Phah hóo liah tsha̍t tshin hia-tī.", "mandarin": "比喻手足之情最為可靠，形容兄弟的情感珍貴可以共患難。", "category": "家庭和諧" },
+          { "id": "g6_s2_8", "semester": 2, "week": 8, "hanzi": "倖豬夯灶，倖囝不孝。", "tailo": "Sīnn ti gia̍h tsàu, sīnn kiánn put-hàu.", "mandarin": "比喻子女要加以管教，不能放縱，過於寵溺小孩子，會養出不肖子。", "category": "身教示範" },
+          { "id": "g6_s2_9", "semester": 2, "week": 9, "hanzi": "大碗閣滿墘。", "tailo": "Tuā-uánn koh muá-kînn.", "mandarin": "比喻物美價廉，有時也指人心不足，要得很多。", "category": "生活觀察" },
+          { "id": "g6_s2_10", "semester": 2, "week": 10, "hanzi": "輸人毋輸陣，輸陣歹看面。", "tailo": "Su lâng m̄ su tīn, su tīn pháinn khuànn-bīn.", "mandarin": "輸給某人無所謂，但在那麼多人中，若排在最後就很難看了。鼓勵人奮發向上，勿落人後。", "category": "立志向上" },
+          { "id": "g6_s2_11", "semester": 2, "week": 11, "hanzi": "少年拼出名，老惜名聲。", "tailo": "Siàu-liân piànn tshut-miâ, lāu sioh miâ-siann.", "mandarin": "年輕人拼著希望出名，老年人則是比較愛惜聲譽。", "category": "品格自重" },
+          { "id": "g6_s2_12", "semester": 2, "week": 12, "hanzi": "袂曉駛船嫌溪狹。", "tailo": "Bē-hiáu sái-tsûn hiâm khe èh.", "mandarin": "不會駕駛船隻卻嫌河面狹小。說明一個人不會自行反省，只會怪罪環境和別人不好。", "category": "反省自勵" },
+          { "id": "g6_s2_13", "semester": 2, "week": 13, "hanzi": "三日討海，四日曝網。", "tailo": "Sann-jit thó-hái, sì-jit phak-bāng.", "mandarin": "一曝十寒，勤有功，嬉無益。曝，曬。", "category": "專注恆心" },
+          { "id": "g6_s2_14", "semester": 2, "week": 14, "hanzi": "仙人拍鼓有時錯，跤步踏差啥人無？", "tailo": "Sian-jîn phah kóo ū-sî tshò, kha-pōo ta̍h-tsha siánn-lâng bô?", "mandarin": "形容神仙都會犯錯，何況是人？", "category": "自省謙遜" },
+          { "id": "g6_s2_15", "semester": 2, "week": 15, "hanzi": "三年一閏，好歹照輪。", "tailo": "Sann-nî tsi̍t lūn, hó-pháinn tsiàu lûn.", "mandarin": "指風水輪流轉。", "category": "世情觀察" }
         ]
       }
     };
 
     let currentGrade = 3;
     let currentPhraseIndex = 0;
+
+    // 學期設定：題目有 semester: 2 就屬於下學期，沒有寫 semester 一律視為上學期
+    const SEMESTER_NAMES = { 1: '上學期', 2: '下學期' };
+    // 依日期預設學期：2～7 月且下學期已有題目時預設下學期，其餘為上學期
+    let currentSemester = (function () {
+      const m = new Date().getMonth() + 1;
+      const hasSem2 = Object.values(GRADE_DATABASE).some(g => g.phrases.some(p => p.semester === 2));
+      return (m >= 2 && m <= 7 && hasSem2) ? 2 : 1;
+    })();
+
+    function semesterOf(phrase) { return phrase.semester === 2 ? 2 : 1; }
+    function semesterWeek(phrase) { return phrase.week; }
+    function getVisiblePhrases(grade = currentGrade, sem = currentSemester) {
+      return GRADE_DATABASE[grade].phrases.filter(p => semesterOf(p) === sem);
+    }
     let isRecording = false;
     let audioContext = null;
     let analyser = null;
@@ -634,7 +723,7 @@
           <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs ${
             isActive ? 'bg-white text-brand-orange' : 'bg-stone-100 text-stone-600'
           }">${grade}</span>
-          <span>${grade}年級 (${totalInGrade}句)</span>
+          <span>${grade}年級</span>
         `;
 
         btn.addEventListener('click', () => {
@@ -643,6 +732,7 @@
             currentGrade = grade;
             currentPhraseIndex = 0;
             renderGradeTabs();
+            renderSemesterTabs();
             updateStudentGradeDisplay();
             renderPhraseDropdown();
             loadCurrentPhrase();
@@ -653,6 +743,38 @@
         container.appendChild(btn);
       });
       updateStudentGradeDisplay();
+    }
+
+    function renderSemesterTabs() {
+      const container = document.getElementById('semester-selector-container');
+      if (!container) return;
+      container.innerHTML = '<span class="text-xs font-bold text-stone-500 shrink-0">學期</span>';
+
+      [1, 2].forEach(sem => {
+        const btn = document.createElement('button');
+        const isActive = sem === currentSemester;
+        const total = getVisiblePhrases(currentGrade, sem).length;
+        btn.className = `px-4 py-1.5 rounded-full font-black text-sm transition custom-btn-press whitespace-nowrap border-2 ${
+          isActive
+            ? 'bg-brand-green text-white border-brand-darkgreen shadow-md'
+            : 'bg-white hover:bg-stone-50 text-stone-700 border-stone-200'
+        }`;
+        btn.textContent = total ? `${SEMESTER_NAMES[sem]}（${total}句）` : `${SEMESTER_NAMES[sem]}（準備中）`;
+
+        btn.addEventListener('click', () => {
+          if (currentSemester !== sem) {
+            playSound('click');
+            currentSemester = sem;
+            currentPhraseIndex = 0;
+            renderSemesterTabs();
+            renderPhraseDropdown();
+            loadCurrentPhrase();
+            renderPhraseList();
+          }
+        });
+
+        container.appendChild(btn);
+      });
     }
 
     function updateStudentGradeDisplay() {
@@ -670,41 +792,72 @@
       const gradeData = GRADE_DATABASE[currentGrade];
       dropdown.innerHTML = '';
 
-      gradeData.phrases.forEach((phrase, idx) => {
+      getVisiblePhrases().forEach((phrase, idx) => {
         const option = document.createElement('option');
         option.value = idx;
         const isPassed = !!userStamps[phrase.id];
         const statusBadge = isPassed ? '✓已過關 ｜ ' : '';
-        option.textContent = `${statusBadge}第 ${phrase.week} 週：${phrase.hanzi}（${phrase.category}）`;
+        option.textContent = `${statusBadge}第 ${semesterWeek(phrase)} 週：${phrase.hanzi}（${phrase.category}）`;
         dropdown.appendChild(option);
       });
+
+      if (!getVisiblePhrases().length) {
+        const option = document.createElement('option');
+        option.textContent = `（${SEMESTER_NAMES[currentSemester]}題庫準備中）`;
+        dropdown.appendChild(option);
+      }
 
       dropdown.value = currentPhraseIndex;
       const summaryEl = document.getElementById('phrase-select-summary');
       if (summaryEl) {
-        summaryEl.textContent = `共 ${gradeData.phrases.length} 句`;
+        summaryEl.textContent = `共 ${getVisiblePhrases().length} 句`;
       }
+    }
+
+    function setEmptyState(isEmpty) {
+      document.getElementById('card-tailo').style.display = isEmpty ? 'none' : '';
+      ['btn-play-demo', 'btn-play-slow', 'btn-toggle-mic'].forEach(id => {
+        const el = document.getElementById(id);
+        el.classList.toggle('opacity-40', isEmpty);
+        el.classList.toggle('pointer-events-none', isEmpty);
+      });
     }
 
     function loadCurrentPhrase() {
       const gradeData = GRADE_DATABASE[currentGrade];
-      const phrase = gradeData.phrases[currentPhraseIndex];
+      const phrase = getVisiblePhrases()[currentPhraseIndex];
+
+      setEmptyState(!phrase);
+      if (!phrase) {
+        const semName = SEMESTER_NAMES[currentSemester];
+        document.getElementById('card-week-badge').textContent = '尚無題目';
+        document.getElementById('card-category-tag').textContent = semName;
+        document.getElementById('phrase-page-indicator').textContent = '0 / 0';
+        document.getElementById('card-hanzi').textContent = `${semName}題庫準備中`;
+        document.getElementById('card-tailo').textContent = '';
+        document.getElementById('card-mandarin').textContent = '老師正在準備新的題目，先去複習其他學期的題目吧！';
+        document.getElementById('btn-prev-phrase').disabled = true;
+        document.getElementById('btn-next-phrase').disabled = true;
+        document.getElementById('result-container').classList.add('hidden');
+        updateSidebarActiveItem();
+        return;
+      }
 
       const dropdown = document.getElementById('phrase-select-dropdown');
       if (dropdown && dropdown.value !== String(currentPhraseIndex)) {
         dropdown.value = currentPhraseIndex;
       }
 
-      document.getElementById('card-week-badge').textContent = `第 ${phrase.week} 週`;
+      document.getElementById('card-week-badge').textContent = `第 ${semesterWeek(phrase)} 週`;
       document.getElementById('card-category-tag').textContent = phrase.category;
-      document.getElementById('phrase-page-indicator').textContent = `${currentPhraseIndex + 1} / ${gradeData.phrases.length}`;
+      document.getElementById('phrase-page-indicator').textContent = `${currentPhraseIndex + 1} / ${getVisiblePhrases().length}`;
 
       document.getElementById('card-hanzi').textContent = phrase.hanzi;
       document.getElementById('card-tailo').textContent = phrase.tailo;
       document.getElementById('card-mandarin').textContent = phrase.mandarin;
 
       document.getElementById('btn-prev-phrase').disabled = (currentPhraseIndex === 0);
-      document.getElementById('btn-next-phrase').disabled = (currentPhraseIndex === gradeData.phrases.length - 1);
+      document.getElementById('btn-next-phrase').disabled = (currentPhraseIndex === getVisiblePhrases().length - 1);
 
       document.getElementById('result-container').classList.add('hidden');
       document.getElementById('rec-status-text').innerHTML = '先聽老師示範，再按下麥克風錄下你的台語吧！';
@@ -719,16 +872,19 @@
       const titleLabel = document.getElementById('grade-title-label');
       const progressLabel = document.getElementById('grade-progress-label');
 
-      titleLabel.textContent = `${currentGrade}年級 每週一句題庫`;
+      titleLabel.textContent = `${currentGrade}年級 ${SEMESTER_NAMES[currentSemester]} 每週一句題庫`;
 
       let passedCount = 0;
-      gradeData.phrases.forEach(p => {
+      getVisiblePhrases().forEach(p => {
         if (userStamps[p.id]) passedCount++;
       });
-      progressLabel.textContent = `已過關 ${passedCount}/${gradeData.phrases.length}`;
+      progressLabel.textContent = `已過關 ${passedCount}/${getVisiblePhrases().length}`;
 
       listContainer.innerHTML = '';
-      gradeData.phrases.forEach((phrase, idx) => {
+      if (!getVisiblePhrases().length) {
+        listContainer.innerHTML = `<p class="text-sm text-stone-400 font-bold text-center py-8">${SEMESTER_NAMES[currentSemester]}題庫準備中<br>敬請期待！</p>`;
+      }
+      getVisiblePhrases().forEach((phrase, idx) => {
         const item = document.createElement('div');
         const isSelected = idx === currentPhraseIndex;
         const isPassed = !!userStamps[phrase.id];
@@ -745,7 +901,7 @@
             <span class="w-6 h-6 rounded-lg text-xs font-black flex items-center justify-center shrink-0 ${
               isPassed ? 'bg-green-100 text-green-700' : 'bg-stone-100 text-stone-500'
             }">
-              ${isPassed ? '✓' : phrase.week}
+              ${isPassed ? '✓' : semesterWeek(phrase)}
             </span>
             <div class="truncate">
               <p class="text-sm font-bold truncate">${phrase.hanzi}</p>
@@ -769,7 +925,7 @@
 
     function updateSidebarActiveItem() {
       const gradeData = GRADE_DATABASE[currentGrade];
-      gradeData.phrases.forEach((_, idx) => {
+      getVisiblePhrases().forEach((_, idx) => {
         const el = document.getElementById(`phrase-item-${idx}`);
         if (!el) return;
         if (idx === currentPhraseIndex) {
@@ -927,7 +1083,7 @@
     }
 
     function showSelfEvalPanel(url) {
-      const phrase = GRADE_DATABASE[currentGrade].phrases[currentPhraseIndex];
+      const phrase = getVisiblePhrases()[currentPhraseIndex];
       const box = document.getElementById('result-container');
       box.classList.remove('hidden');
 
@@ -1011,10 +1167,17 @@
       const sSeat = studentProfile.seatNum ? `${studentProfile.seatNum}號` : '';
       info.textContent = `學童：${currentGrade}年級 ${sClass} ${sSeat} ${sName} 的台語闖關紀錄`;
 
-      const gradeData = GRADE_DATABASE[currentGrade];
       grid.innerHTML = '';
 
-      gradeData.phrases.forEach((phrase) => {
+      [1, 2].forEach(sem => {
+      const semList = getVisiblePhrases(currentGrade, sem);
+      const semPassed = semList.filter(p => !!userStamps[p.id]).length;
+      const head = document.createElement('div');
+      head.className = 'col-span-4 text-left text-sm font-black text-amber-900 mt-1';
+      head.textContent = semList.length ? `${SEMESTER_NAMES[sem]}　已過關 ${semPassed}/${semList.length}` : `${SEMESTER_NAMES[sem]}　題庫準備中`;
+      grid.appendChild(head);
+
+      semList.forEach((phrase) => {
         const isStamped = !!userStamps[phrase.id];
         const stampEl = document.createElement('div');
         stampEl.className = `p-2.5 rounded-2xl border-2 flex flex-col items-center justify-center text-center transition ${
@@ -1025,10 +1188,11 @@
 
         stampEl.innerHTML = `
           <div class="text-2xl mb-1">${isStamped ? '💮' : '⚪'}</div>
-          <span class="text-xs font-black">第 ${phrase.week} 週</span>
+          <span class="text-xs font-black">第 ${semesterWeek(phrase)} 週</span>
           <span class="text-[10px] truncate max-w-full font-medium ${isStamped ? 'text-amber-800' : 'text-stone-400'}">${phrase.hanzi.substring(0, 4)}...</span>
         `;
         grid.appendChild(stampEl);
+      });
       });
 
       modal.classList.remove('hidden');
@@ -1076,10 +1240,10 @@
       const cNum = studentProfile.classNum ? `${studentProfile.classNum}班 ` : '';
       const sNum = studentProfile.seatNum ? `${studentProfile.seatNum}號 ` : '';
       
-      const totalPassed = Object.keys(userStamps).length;
+      const totalPassed = getVisiblePhrases().filter(p => !!userStamps[p.id]).length;
       document.getElementById('cert-student-name').textContent = `學生：${currentGrade}年級 ${cNum}${sNum}${name}`;
       document.getElementById('cert-content').textContent = 
-        `恭喜該同學於本學期積極參與「每週一句自主發音挑戰」，已順利過關累積 ${totalPassed} 枚台語認證章，展現優異本土語言口語素養，特頒此狀以資勉勵！`;
+        `恭喜該同學於${SEMESTER_NAMES[currentSemester]}積極參與「每週一句自主發音挑戰」，已順利過關累積 ${totalPassed} 枚台語認證章，展現優異本土語言口語素養，特頒此狀以資勉勵！`;
       document.getElementById('cert-date').textContent = new Date().toLocaleDateString('zh-TW');
 
       const printArea = document.getElementById('print-certificate-area');
@@ -1091,6 +1255,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       initStudentProfile();
       renderGradeTabs();
+      renderSemesterTabs();
       renderPhraseDropdown();
       loadCurrentPhrase();
       renderPhraseList();
@@ -1114,7 +1279,7 @@
       });
 
       document.getElementById('btn-next-phrase').addEventListener('click', () => {
-        const maxLen = GRADE_DATABASE[currentGrade].phrases.length;
+        const maxLen = getVisiblePhrases().length;
         if (currentPhraseIndex < maxLen - 1) {
           playSound('click');
           currentPhraseIndex++;
@@ -1124,12 +1289,12 @@
 
       document.getElementById('btn-play-demo').addEventListener('click', () => {
         playSound('click');
-        playDemoAudio(GRADE_DATABASE[currentGrade].phrases[currentPhraseIndex], 1.0);
+        playDemoAudio(getVisiblePhrases()[currentPhraseIndex], 1.0);
       });
 
       document.getElementById('btn-play-slow').addEventListener('click', () => {
         playSound('click');
-        playDemoAudio(GRADE_DATABASE[currentGrade].phrases[currentPhraseIndex], 0.75);
+        playDemoAudio(getVisiblePhrases()[currentPhraseIndex], 0.75);
       });
 
       document.getElementById('btn-toggle-mic').addEventListener('click', () => {
